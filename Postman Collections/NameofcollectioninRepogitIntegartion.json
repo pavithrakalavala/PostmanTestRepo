@@ -11,7 +11,7 @@
 			"item": [
 				{
 					"name": "GETUsers",
-					"_postman_id": "dd1c4aea-73c2-427b-b10e-469dfcf7340e",
+					"id": "dd1c4aea-73c2-427b-b10e-469dfcf7340e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -32,7 +32,7 @@
 				},
 				{
 					"name": "GETQueryParams",
-					"_postman_id": "caf6c687-ca8b-4a4c-bf0c-b8c347f8354c",
+					"id": "caf6c687-ca8b-4a4c-bf0c-b8c347f8354c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -66,7 +66,7 @@
 				},
 				{
 					"name": "GetRequestUsingtheResponseValuesStoredInGlobalVars",
-					"_postman_id": "9981ca5f-0fe8-47f5-987e-ceca46d91f1d",
+					"id": "9981ca5f-0fe8-47f5-987e-ceca46d91f1d",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -99,7 +99,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "c35c1a00-52cf-4236-87b8-5f438fa1f7c9",
+			"id": "c35c1a00-52cf-4236-87b8-5f438fa1f7c9",
 			"description": "This folder contains all the GET requests"
 		},
 		{
@@ -107,7 +107,7 @@
 			"item": [
 				{
 					"name": "CreateUser",
-					"_postman_id": "64fb3208-ba48-461c-8cd4-82496fc0b99e",
+					"id": "64fb3208-ba48-461c-8cd4-82496fc0b99e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -129,7 +129,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "74bb361d-bd08-4f0a-b958-91313aa641af",
+			"id": "74bb361d-bd08-4f0a-b958-91313aa641af",
 			"description": "This Folder contains POST Requests"
 		},
 		{
@@ -143,13 +143,6 @@
 							"script": {
 								"id": "084171f9-ba34-4b65-bf34-5cd42b426965",
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {\r",
-									"  pm.expect(pm.response.code).to.eql(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"url to be gorest\", function () {\r",
-									"pm.expect(pm.environment.get(\"QA-URL\")).to.equal(\"https://gorest.co.in\");\r",
-									"});\r",
 									"\r",
 									"pm.test(\"response body matches a string\", function () {\r",
 									"pm.expect(pm.response.text()).to.include(\"active\");\r",
@@ -183,7 +176,7 @@
 							}
 						}
 					],
-					"_postman_id": "2e79f824-b26f-4d65-ae25-f75ee3701175",
+					"id": "2e79f824-b26f-4d65-ae25-f75ee3701175",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -356,7 +349,7 @@
 					]
 				}
 			],
-			"_postman_id": "1b3f4b16-ff32-4fca-91eb-41f69910c7e9",
+			"id": "1b3f4b16-ff32-4fca-91eb-41f69910c7e9",
 			"description": "Postman tests are JS tests that will be executed after response\n\nDynamically updating headers and all in pre -req script\n\nTest scripts will be executed after getting response\n\nStartFragment\n\n## Using multiple assertions\n\nStartFragment\n\ntests can include multiple assertions as part of a single test\n\nStartFragment\n\nIf any of the contained assertions fails, the test as a whole will fail. All assertions must be successful for the test to pass.\n\nEndFragment\n\n  \n  \n\nEndFragment\n\n  \n  \n\nEndFragment"
 		}
 	],
