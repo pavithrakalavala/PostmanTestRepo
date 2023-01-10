@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "83f07103-eaef-4bb0-b30c-d3380dcd60fe",
+		"name": "GlobalAuthToCollection",
+		"description": "This collection is used for demo of adding Authorization at collection level so that it will applicable or inherit to all the requests inside collection\n\nwe can duplicate the env as well when we want all variables to be applicable for other env and also while running through collection Runner we can choose env\n\nEdit collection select Bearer from Authorization\n\nin all the requests inside the collection select inherit from parent from authorization tab\n\nRun collection so that it will open the collection runner and get the results\n\nResults will be 0 because its not test cases its just request we ran\n\nTo store the value from response into variable\n\n\\-Add env variable as response key(Status)- hit the post request-click on the value obtained in response -Add to collection ->status -Now go to env variables and chk stus key value is stored\n\nSave response\n\nIn the postman console logs will be displayed for the session of the postman console",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4488174"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "GETUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{QA-URL}}/public/v2/users",
+							"host": [
+								"{{QA-URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						},
+						"description": "This request is used for get users\n\nPsotman console at bottom -to see logs nd search in logs"
+					},
+					"response": []
+				},
+				{
+					"name": "GETQueryParams",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{QA-URL}}/public/v2/users?gender=male&status=active",
+							"host": [
+								"{{QA-URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							],
+							"query": [
+								{
+									"key": "gender",
+									"value": "male"
+								},
+								{
+									"key": "status",
+									"value": "active"
+								}
+							]
+						},
+						"description": "This request used for testing query params\n\nyou can enter params in params tab or directly in endpoint url\n\nTo remove param uncheck param from params tab\n\nuse bulk edit which helps copying one request params to another request\n\nIn bulk edit comment // to remove params"
+					},
+					"response": []
+				},
+				{
+					"name": "GetRequestUsingtheResponseValuesStoredInGlobalVars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{QA-URL}}/public/v2/users?status={{Status}}&name={{name}}",
+							"host": [
+								"{{QA-URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "{{Status}}"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}"
+								}
+							]
+						},
+						"description": "This request used for demo of the get request with the particular values stored in the global variables as query params or response values which is stored from the create user post request\n\nyou can see the values in the params"
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains all the GET requests"
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Krishna\",\r\n    \"email\": \"Krishna@gmail.com\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{QA-URL}}/public/v2/users",
+							"host": [
+								"{{QA-URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						},
+						"description": "This request is used for Demo of POST method\n\nwhere it will create the user"
+					},
+					"response": []
+				}
+			],
+			"description": "This Folder contains POST Requests"
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "ValidateResponseAndURL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"url to be gorest\", function () {\r",
+									"pm.expect(pm.environment.get(\"QA-URL\")).to.equal(\"https://gorest.co.in\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"response body matches a string\", function () {\r",
+									"pm.expect(pm.response.text()).to.include(\"active\");\r",
+									"}); \r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"//Let Url=pm.variables.get(\"QA-URL\");\r",
+									"//Console.log(\"value of url\"+Url);\r",
+									"\r",
+									"//pm.variables.set(\"name\",\"Ajit\");\r",
+									"//Console.log(pm.variables.get(name));\r",
+									"\r",
+									"//Console.log(pm.globals.get(\"QA-Url\"));\r",
+									"\r",
+									"//pm.environment.set\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Started Running Test API'S\");\r",
+									"//Auth Token\r",
+									"//Store in a var\r",
+									"//Set this var in Env var\r",
+									"//Test: Get env var\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{QA-URL}}/public/v2/users",
+							"host": [
+								"{{QA-URL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						},
+						"description": "This request is used for get users\n\nPsotman console at bottom -to see logs nd search in logs"
+					},
+					"response": [
+						{
+							"name": "ValidateResponseAndURL",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{QA-URL}}/public/v2/users",
+									"host": [
+										"{{QA-URL}}"
+									],
+									"path": [
+										"public",
+										"v2",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 22 Dec 2022 09:56:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=0, private, must-revalidate"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"5851c93d511a99812eca6fedc42aa06e\""
+								},
+								{
+									"key": "referrer-policy",
+									"value": "strict-origin-when-cross-origin"
+								},
+								{
+									"key": "vary",
+									"value": "Origin"
+								},
+								{
+									"key": "x-content-type-options",
+									"value": "nosniff"
+								},
+								{
+									"key": "x-download-options",
+									"value": "noopen"
+								},
+								{
+									"key": "x-frame-options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "x-links-current",
+									"value": "https://gorest.co.in/public/v2/users?page=1"
+								},
+								{
+									"key": "x-links-next",
+									"value": "https://gorest.co.in/public/v2/users?page=2"
+								},
+								{
+									"key": "x-links-previous",
+									"value": ""
+								},
+								{
+									"key": "x-pagination-limit",
+									"value": "10"
+								},
+								{
+									"key": "x-pagination-page",
+									"value": "1"
+								},
+								{
+									"key": "x-pagination-pages",
+									"value": "557"
+								},
+								{
+									"key": "x-pagination-total",
+									"value": "5565"
+								},
+								{
+									"key": "x-permitted-cross-domain-policies",
+									"value": "none"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "90"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "89"
+								},
+								{
+									"key": "x-ratelimit-reset",
+									"value": "1"
+								},
+								{
+									"key": "x-request-id",
+									"value": "fad70f3b-0ef6-4bc5-a44a-bf0d5d3824f3"
+								},
+								{
+									"key": "x-runtime",
+									"value": "0.123167"
+								},
+								{
+									"key": "x-xss-protection",
+									"value": "0"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "Report-To",
+									"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=Ir7lXQOan%2F2cWyybg8yVQejZjNUk1l%2FAzzemMHAzfWmpFbnvIjYyTwRqmBsjzRr5wDikfL9miqZWNes82iC%2FTcjpj%2BM2xj3P2I8EyUqxV2Ugi6uf9QuKJmZZHjNZF2o%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "NEL",
+									"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "CF-RAY",
+									"value": "77d7fc480dc69176-FRA"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 5947,\n        \"name\": \"Krishna\",\n        \"email\": \"Krishna@gmail.com\",\n        \"gender\": \"male\",\n        \"status\": \"active\"\n    },\n    {\n        \"id\": 5945,\n        \"name\": \"Ajit\",\n        \"email\": \"Ajit@gmail.com\",\n        \"gender\": \"female\",\n        \"status\": \"active\"\n    },\n    {\n        \"id\": 5936,\n        \"name\": \"Ms.Pavi\",\n        \"email\": \"pavi@gmail.com\",\n        \"gender\": \"female\",\n        \"status\": \"active\"\n    },\n    {\n        \"id\": 5662,\n        \"name\": \"Bhardwaj Dwivedi JD\",\n        \"email\": \"bhardwaj_jd_dwivedi@hauck.org\",\n        \"gender\": \"female\",\n        \"status\": \"inactive\"\n    },\n    {\n        \"id\": 5661,\n        \"name\": \"Krishnadasa Panicker\",\n        \"email\": \"panicker_krishnadasa@heller.co\",\n        \"gender\": \"female\",\n        \"status\": \"active\"\n    },\n    {\n        \"id\": 5660,\n        \"name\": \"Chaten Bhattathiri Jr.\",\n        \"email\": \"bhattathiri_chaten_jr@greenholt.name\",\n        \"gender\": \"male\",\n        \"status\": \"active\"\n    },\n    {\n        \"id\": 5659,\n        \"name\": \"Ashok Sinha\",\n        \"email\": \"sinha_ashok@king.info\",\n        \"gender\": \"male\",\n        \"status\": \"active\"\n    },\n    {\n        \"id\": 5658,\n        \"name\": \"Bhooshit Somayaji\",\n        \"email\": \"bhooshit_somayaji@yost.info\",\n        \"gender\": \"male\",\n        \"status\": \"inactive\"\n    },\n    {\n        \"id\": 5657,\n        \"name\": \"Kalpana Prajapat VM\",\n        \"email\": \"kalpana_prajapat_vm@langworth.name\",\n        \"gender\": \"male\",\n        \"status\": \"inactive\"\n    },\n    {\n        \"id\": 5656,\n        \"name\": \"Bhadran Pilla Ret.\",\n        \"email\": \"pilla_ret_bhadran@wilkinson.com\",\n        \"gender\": \"female\",\n        \"status\": \"inactive\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "Postman tests are JS tests that will be executed after response\n\nDynamically updating headers and all in pre -req script\n\nTest scripts will be executed after getting response\n\nStartFragment\n\n## Using multiple assertions\n\nStartFragment\n\ntests can include multiple assertions as part of a single test\n\nStartFragment\n\nIf any of the contained assertions fails, the test as a whole will fail. All assertions must be successful for the test to pass.\n\nEndFragment\n\n  \n  \n\nEndFragment\n\n  \n  \n\nEndFragment"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{GoRestAuthToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
